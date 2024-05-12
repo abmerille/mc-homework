@@ -1,10 +1,11 @@
+"""Constants used within the module"""
 HEADING = 'heading'
 LINK = 'link'
 BLANK_LINE = 'blank_line'
 PARAGRAPH = 'paragraph'
 
 
-r""" Regex notes
+r"""Regex notes
 . all characters except newline
 \n newline
 ^ start of string or negate
