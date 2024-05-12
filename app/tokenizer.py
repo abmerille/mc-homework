@@ -48,7 +48,8 @@ class Tokenizer:
         return heading_token
 
     def tokenize_paragraph(self, raw_string: str) -> ParagraphToken:
-        text = raw_string
+        # Remove ending new line character(s)
+        text = raw_string.rstrip()
         link_tokens = self.tokenize_link(text)
         if link_tokens:
             text = ''

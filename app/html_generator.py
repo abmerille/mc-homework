@@ -1,12 +1,13 @@
 from airium import Airium
 
+from app.tokenizer import Tokenizer
 from app.tokens import HeadingToken
 
 
 class HTMLGenerator:
 
-    def __init__(self) -> None:
-        self.a = Airium()
+    def __init__(self, minify: bool = True) -> None:
+        self.a = Airium(source_minify=minify)
 
     def generate_link_html(self, token):
         if not token.link_tokens:
@@ -41,7 +42,17 @@ class HTMLGenerator:
                 with self.a.p():
                     self.generate_link_html(token)
 
- 
+    @classmethod
+    def create_html_from_lines(cls, lines_iter, minify=True):
+        html_generator = cls(minify=minify)
+        tokenizer = Tokenizer()
+        tokens = []
+        for line in lines_iter:
+            tokens.append(tokenizer.tokenize_line(line))
+        html_generator.generate_html(tokens)
+        html = html_generator.get_html()
+        return html
+    
     def get_html(self):
         # return bytes(self.a)
         return str(self.a)

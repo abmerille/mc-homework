@@ -2,8 +2,16 @@ import argparse
 import os
 import re
 
-from constants import BLANK_LINE, HEADING, LINK, REGEX_RULES
 
+HEADING = 'heading'
+LINK = 'link'
+BLANK_LINE = 'blank_line'
+
+REGEX_RULES = {
+    HEADING: r'^(#{1,6})(?=\s|$)(.*)(?:\n+|$)', # Get up to 6 #s and all other text
+    LINK: r'^(.*?)\[(?!.*\] )(.+?)\]\((.*?)(?:\))(?!\))(.*)(?:\n+|$)',
+    BLANK_LINE: r'^(\n)', 
+}
 
 def generate_link(text: str) -> list:
     out = []
@@ -57,9 +65,7 @@ def file_iter(*args, **kwargs):
         yield from file
 
 
-def main(file_name: str=None, to_file: bool=False):
-    if not file_name:
-        file_name = 'sample1.md'
+def main(file_name: str, to_file: bool=False):
     cwd = os.getcwd()
     file_location = f'{cwd}/{file_name}'
     file = file_iter(f'{file_location}', 'r', encoding='utf-8')

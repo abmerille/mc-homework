@@ -45,7 +45,7 @@ docker build -t <image_tag_name> .
 ## Usage
 #### OPTION 1: Python via Command Line
 There are 2 options with the command line each with an option to write the output to a file otherwise the default is output via stdout.
-Each requires creating a markdown file to be converted.
+Each requires creating a markdown file locally. There is a `tests/test_files/` directory that can be used or anywhere.
 
 1) From within the `mc-homework` directory run:
     ```sh
@@ -53,7 +53,7 @@ Each requires creating a markdown file to be converted.
     ```
 2) From within the `app` directory run:
     ```sh
-    python md_to_html.py <markdown_filename.md>
+    python old/md_to_html.py <markdown_filename.md>
     ```
 
 The first option uses an object oriented programming approach and the second is a self contained more functional approach. The flag `-f` or `-to-file` can be added to output the results to a file. The outputed file will be named `<markdown_filename>_output.html`
@@ -65,6 +65,18 @@ To run FastAPI via Docker, use the same `<image_tag_name>` created during instal
 docker run --rm --name <container_name> -p 8000:8000 <image_tag_name>
 ```
 (e.g. `docker run --rm --name adam_merille_craft -p 8000:8000 mc-homework-image`)
+
+The output should show `Uvicorn running on http://0.0.0.0:8000`.
+
+Do a POST request at `http://0.0.0.0:8000/create_html/` with a JSON request body of `{"markdown": "<markdown>"}` using curl, Postman, or FastAPI Swagger UI.
+
+FastAPI uses Swagger UI to create interactive docs at `http://0.0.0.0:8000/docs`. This can be reached in your browser.
+
+To use the interactive docs: 
+* Click on the POST /create_html/ option.
+* Click on 'Try it out` in the top right.
+* Replace "string" in the request body with markdown.
+* Click execute and scroll down to see the response.
 
 ## Tests
 From mc-homework directory run 
