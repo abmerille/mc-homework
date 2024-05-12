@@ -49,7 +49,7 @@ def main(file_name: str=None, to_file: bool=False):
     file = file_iter(f'{file_location}', 'r', encoding='utf-8')
     lines_out = create_html(file)
     if to_file:
-        output_file_name = f'{file_name.split('.')[0]}_output.html'
+        output_file_name = f'{file_name.split(".")[0]}_output.html'
         with open(f'{output_file_name}', 'w', encoding="utf-8") as f:
             f.write(''.join(lines_out))
     else:
