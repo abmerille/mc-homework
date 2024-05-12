@@ -81,8 +81,12 @@ To use the interactive docs:
 ## Tests
 From mc-homework directory run 
 ```sh
-python3 -m unittest tests.regex_test
+python -m unittest tests.regex_test
 ``` 
+
+```sh
+python -m unitttest tests.file_test
+```
 
 ## Markdown Implemented
 
