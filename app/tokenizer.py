@@ -12,9 +12,10 @@ class Tokenizer:
     provides a location where if there were going to be more markdown rules 
     the input string could be tokenized using this class.
     
-    I originally had the thought that if there were a set of strings then they 
-    could be tokenized in parallel before needing to be synchronously put together 
-    as an html document. However, I did not have time to implement that.
+    I originally had the thought that if there were a set of strings then they
+    could be tokenized in parallel before needing to be synchronously put 
+    together as an html document. However, I did not have time to implement 
+    that.
     """
     def tokenize_blank_line(self, text: str) -> BlankLineToken:
         """Returns BlankLineToken."""
@@ -23,23 +24,24 @@ class Tokenizer:
         )
 
     def tokenize_link(self, text: str) -> list[LinkToken]:
-        """Create list of one or more LinkTokens
+        """Creates a list of one or more LinkTokens.
         
         Since a link exists only inline of a paragraph or heading, this 
         function always returns a list. The order of the token list returned
-        is a representation of the text inputed. 
+        is a representation of the input text.
     
         The link regex rule divides the matches into 4 groups. The last group
         could contain additional links so that is taken into account where the
         last group is passed back through the regex until exhausted.
 
-        I chose to due a regex match on the text input within this function so
-        caller functions do not have to concern with link related logic.
+        I chose to do a regex match on the text input within this function so 
+        the caller function does not have to be concerned with link related 
+        logic.
 
         Args:
-            text: input line string
+            text: Input line string.
         Returns:
-            LinkToken objects representing the text inputed.
+            LinkToken objects representing the input text.
         """
         tokens = []
         link_pattern = re.compile(REGEX_RULES[LINK])
@@ -68,11 +70,12 @@ class Tokenizer:
 
         return tokens
     
-    def tokenize_heading(self, raw_string: str, matched_groups: tuple) -> HeadingToken:
+    def tokenize_heading(self, raw_string: str, 
+                         matched_groups: tuple) -> HeadingToken:
         """Creates a HeadingToken and adds LinkeTokens if they exist.
         
         Args:
-            raw_string: Text input from the line which regex mapped to a heading.
+            raw_string: Text input which regex mapped to a heading.
             matched_groups: The output from a regex match function call.
         Returns:
             HeadingToken which may contain additional link tokens.
@@ -93,7 +96,7 @@ class Tokenizer:
         """Creates a ParagraphToken and adds LinkTokens if they exist.
         
         Args:
-            raw_string: Text input from the line input.
+            raw_string: Text input.
         Returns:
             ParagraphToken which may contain additional link tokens.
         """
@@ -110,13 +113,12 @@ class Tokenizer:
         return paragraph_token
 
     def tokenize_line(self, line: str) -> Token:
-        """
-        Takes a String and converts it to a Token object.
+        """Takes a string and converts it to a Token object.
 
         Args:
             line: Expected to be a line from markdown input.
         Returns:
-            Token which the String mapped to.
+            Token object which the string mapped to.
         """
         token = None
         heading_pattern = re.compile(REGEX_RULES[HEADING])

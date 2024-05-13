@@ -11,8 +11,9 @@ class HTMLGenerator:
     HTMLGenerator class which converts Token objects or an iterable containing
     strings into an html string or file.
 
-    The package Airium is used to create the html. The standard output is a
-    minified version of html but can be output in a pretty format for easy reading.
+    The package Airium is used to create the html. The default output is a
+    minified version of html, but the output can be created in a pretty format
+    for easy reading.
     """
     def __init__(self, minify: bool = True) -> None:
         """Initiate Airium object and default to minified html.
@@ -25,11 +26,11 @@ class HTMLGenerator:
     def generate_inline_html(self, token: Token) -> None:
         """Updates Airium object with inline html.
 
-        This function handles the case where a HeadingToken or ParagraphToken
-        contain anchor tag markdown. 
+        This function handles the case where a HeadingToken or a ParagraphToken
+        may contains one or more LinkTokens. 
 
         Args:
-            token: root token which may contain inline tokens.
+            token: Root token which may contain inline tokens.
         """
         if not token.link_tokens:
             self.a(token.text)
@@ -45,11 +46,11 @@ class HTMLGenerator:
     def generate_html(self, tokens: list[Token]):
         """Updates Airium object with token values.
 
-        I split the path between a heading tag and everything else. I looked
-        up some markdown generators to see the output from a line which only has
-        an anchor tag and it still wrapped them in a paragraph tag. Combined with
-        ignoring the blank lines it seemed the simplest path was to split on whether
-        I was dealing with a heading tag.
+        I split the logic to be between a heading tag and everything else. When
+        I looked at the output of some markdown generators online they would 
+        wrap a line with only an anchor tag format in a paragraph element. So I
+        do the same. Combined with ignoring the blank lines it seemed the 
+        simplest path was to split on whether I was dealing with a heading tag.
 
         Args:
             tokens: All tokens to be used for html generation.
@@ -77,12 +78,12 @@ class HTMLGenerator:
 
     @classmethod
     def create_html_from_lines(cls, lines_iter: Iterable, minify: bool=True) -> str:
-        """Factory method to instantiate HTMLGenerator
+        """Factory method to instantiate HTMLGenerator.
 
-        Since a call to create the html involved instantiating the HTMLGenerator 
-        object in order to create the Airium object on the class follwoed by a call
-        a call to then generate the html this classmethod allowed for a more 
-        streamlined approach.
+        Since a call to create the html involved instantiating the 
+        HTMLGenerator object (in order to create the Airium object on the 
+        class) followed by a call to then generate the html this classmethod
+        allowed for a more streamlined approach.
         
         Args:
             lines_iter: Lines from markdown input (can be an iterator).
@@ -102,8 +103,8 @@ class HTMLGenerator:
     def get_html(self) -> str:
         """Returns the current html.
 
-        Originally, I was going to have a toggle in case there might be a 
-        to handle unicode characters where I would use bytes(self.a). But I didn't 
+        Originally, I was going to have a toggle in case there might be a need
+        to handle unicode characters by using `bytes(self.a)`. But I didn't 
         have time to dig too deep into this issue.
         """
         return str(self.a)

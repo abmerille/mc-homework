@@ -2,7 +2,7 @@
 Markdown to HTML module script.
 
 This can be run using `python -m app <markdwon_file>`
-A optional to_file flag can be passed in which outputs the results
+An optional `--to_file` flag can be passed in which outputs the results
 to a file instead of printing them to stdout.
 """
 
@@ -16,11 +16,12 @@ def file_iter(*args, **kwargs):
     """Iterator for reading each line in a file
     
     Used to read a file one line at a time without loading the entire file
-    into memory. This is to handle if the file were to be extremely large.
-    The trade-off is that it will incur more Disk I/O. 
+    into memory at once. This is to handle if the file were to be extremely 
+    large. The trade-off is that it will incur more Disk I/O.
+
     However, it appears that it improves performance due to pipelining and 
     disk cache so while one batch is being worked on the next one is being 
-    read without the blocking which would occur with a full read.
+    read without the blocking which would occur with a full read of the file.
     """
     with open(*args, **kwargs) as file:
         yield from file

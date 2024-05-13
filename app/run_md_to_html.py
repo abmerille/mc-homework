@@ -24,9 +24,9 @@ async def create_html(markdown_request: MarkdownRequest):
     """POST endpoint which expects a JSON body.
 
     Used JSON in the body for quick development. The trade-off is that
-    newline characters (\n) need to be explicit in the passed in value.
-    An area for improvement could be to look into handling large inputs
-    and accept files or query parameters instead of json.
+    newline characters (\n) need to be explicitly passed in.
+    An area for improvement would be to look into handling large inputs
+    and accepting files or query parameters instead of json.
     """
     lines = markdown_request.model_dump()['markdown'].split('\n')
     html = HTMLGenerator.create_html_from_lines(lines)

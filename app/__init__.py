@@ -1,5 +1,5 @@
 """
-Markdown to HTML application
+Markdown to HTML application.
 
 Created for Mailchimp senior software engineer craft demonstration.
 

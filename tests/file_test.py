@@ -5,7 +5,7 @@ from app.html_generator import HTMLGenerator
 
 
 class RegexRulesTestCase(TestCase):
-    """Test cases for defined regex."""
+    """Test cases for reading a markdown file into html."""
     def test_translate_file(self):
         cwd = os.getcwd()
         file_name = 'tests/test_files/sample1.md'

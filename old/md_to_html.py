@@ -1,3 +1,7 @@
+"""
+This is a straightforward script which helped me understand the homework.
+"""
+
 import argparse
 import os
 import re
