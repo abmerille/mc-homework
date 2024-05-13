@@ -20,13 +20,13 @@ source <venv>/bin/activate
 
 (Or see https://docs.python.org/3/library/venv.html#how-venvs-work if not using bash/zsh terminal)
 
-Once activated run:
+Once activated, install the required libraries with:
 
 ```sh
 pip install -q --upgrade -r requirements.txt
 ```
 
-After running the script the virtal environment can be deactivated by typing 
+After running the script or module, the virtual environment can be deactivated by typing: 
 
 ```sh
 deactivate
@@ -44,19 +44,14 @@ docker build -t <image_tag_name> .
 
 ## Usage
 #### OPTION 1: Python via Command Line
-There are 2 options with the command line each with an option to write the output to a file otherwise the default is output via stdout.
-Each requires creating a markdown file locally. There is a `tests/test_files/` directory that can be used or anywhere.
+The script requires a local markdown file. There is a `tests/test_files/` directory that can be used or anywhere in the directory is fine.
 
-1) From within the `mc-homework` directory run:
-    ```sh
-    python -m app <path/to/markdown_filename.md>
-    ```
-2) From within the `app` directory run:
-    ```sh
-    python old/md_to_html.py <markdown_filename.md>
-    ```
+From within the `mc-homework` directory run:
+```sh
+python -m app <path/to/markdown_file.md>
+```
 
-The first option uses an object oriented programming approach and the second is a self contained more functional approach. The flag `-f` or `-to-file` can be added to output the results to a file. The outputed file will be named `<markdown_filename>_output.html`
+The optional flag `-f` or `--to_file` can be added to output the results to a file instead of printed to the terminal. The outputted file will be named `<markdown_filename>_output.html` in the same location as the input file.
 
 #### OPTION 2: Docker and FastAPI Option
 To run FastAPI via Docker, use the same `<image_tag_name>` created during installation and run:
@@ -74,12 +69,12 @@ FastAPI uses Swagger UI to create interactive docs at `http://0.0.0.0:8000/docs`
 
 To use the interactive docs: 
 * Click on the POST /create_html/ option.
-* Click on 'Try it out` in the top right.
-* Replace "string" in the request body with markdown.
+* Click on 'Try it out` on the right.
+* Replace "string" in the request example body with the markdown.
 * Click execute and scroll down to see the response.
 
 ## Tests
-From mc-homework directory run 
+From `mc-homework` directory run 
 ```sh
 python -m unittest tests.regex_test
 ``` 
